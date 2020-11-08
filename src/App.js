@@ -1,5 +1,5 @@
-import React from 'react'
-import logo from './logo.svg';
+import React, { useState, useEffect } from 'react';
+// import logo from './logo.svg';
 import './App.css';
 
 
@@ -15,29 +15,31 @@ function App() {
   const [selectedVideo, setSelectedVideo] = React.useState(null);
 
   const KEY = 'AIzaSyADEp1HFKfMKOhQ_pWV9meGyctGlStSBUI';
-
-  React.useEffect(() => {
-      
+ 
+  React.useEffect(() => { 
     async function fetchVideos() {
-      const response = await youtube.get('/search', {
+      await youtube.get('/search', {
           params: {
               key: KEY,
+              channelId: 'UCsUzcuvRZmPfJIqPcnmo3xw',
               part: 'snippet',
-              q: 'dprk',
+              q: 'Sam jiyon',
               maxResults: 5,
           }
+      }).then(response => {
+
+        setVideos( response.data.items ); 
+        setSelectedVideo( response.data.items[1] );  
       });
-        
-      setVideos( response.data.items );
-      setSelectedVideo( response .data.items[0] );
+      
     }
 
     fetchVideos();
 
   }, []); // <-- Have to pass in [] here!
+ 
 
-  
-  return (
+  return selectedVideo ? (
     <div className="App">
         <div className="eleven wide column">
             <VideoDetails video={selectedVideo} />
@@ -46,7 +48,11 @@ function App() {
         videos = {videos}
         /> 
     </div>
-  );
+  ) : (
+    <div>
+      Loading ...
+    </div>
+  )
 }
 
 export default App;
