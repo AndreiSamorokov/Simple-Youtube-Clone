@@ -4,36 +4,47 @@ import './App.css';
 
 
 import VideoList from './components/VideoList'
+import VideoDetails from './components/VideoDetails'
 import youtube from './api/api'
 
 
+  
 function App() {
  
   const [videos, setVideos] = React.useState([]);
+  const [selectedVideo, setSelectedVideo] = React.useState(null);
+
   const KEY = 'AIzaSyADEp1HFKfMKOhQ_pWV9meGyctGlStSBUI';
 
   React.useEffect(() => {
-     
-    const response = youtube.get('/search', {
-      params: {
-          key: KEY,
-          part: 'snippet',
-          q: 'react js',
-          maxResults: 5,
-      }
-    });
-    
-    
-    console.log( response );
+      
+    async function fetchVideos() {
+      const response = await youtube.get('/search', {
+          params: {
+              key: KEY,
+              part: 'snippet',
+              q: 'dprk',
+              maxResults: 5,
+          }
+      });
+        
+      setVideos( response.data.items );
+      setSelectedVideo( response .data.items[0] );
+    }
+
+    fetchVideos();
+
   }, []); // <-- Have to pass in [] here!
 
- 
-
+  
   return (
     <div className="App">
-        {/* <VideoList 
+        <div className="eleven wide column">
+            <VideoDetails video={selectedVideo} />
+        </div>
+        <VideoList 
         videos = {videos}
-        />  */}
+        /> 
     </div>
   );
 }
