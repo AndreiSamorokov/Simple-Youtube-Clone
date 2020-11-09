@@ -54,7 +54,7 @@ function App() {
       fetchVideos();
     }
     console.log('effect function');
-  }, []); // <-- Have to pass in [] here!
+  }, [videos]); // <-- Have to pass in [] here!
  
 
   const fetchVideos = async  () => {
@@ -81,8 +81,7 @@ function App() {
 
   function onChannelSelect( qstringval, channelIdval ){ 
     setChannelId( channelIdval );
-    setQstring  ( qstringval ); 
-    fetchVideos();
+    setQstring  ( qstringval );  
   }
 
   return selectedVideo ? (
@@ -92,7 +91,7 @@ function App() {
                 <VideoLibraryIcon />
                 <Typography variant="h5" > Videos </Typography> 
                 { channels.map((channel) =>(
-                  <Button variant="out lined" key={channel.title}  onClick={() => onChannelSelect(channel.title, channel.channelId)} color="inherit">{channel.title}</Button>
+                  <Button variant="outlined" key={channel.title}  onClick={() => onChannelSelect(channel.title, channel.channelId)} color="inherit">{channel.title}</Button>
                 ))}
                 
               </Toolbar> 
