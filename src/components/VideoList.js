@@ -4,15 +4,15 @@ import VideoItem from './VideoItem.js'
 function VideoList( videos ) {
     const videofiles = videos.videos;
     
-    if( videofiles.length > 0 ){
-        console.log( videofiles );    
+    if( videofiles.length > 0 ){  
         return (
-            <div className="videolist">
-                { videofiles.map( (video)=>{
-                    // <div key={video.id.videoId}> test  </div>
-                    <VideoItem key={video.id.videoId}
+            <div className="list"> 
+                { videofiles.map( (video)=>(
+                     
+                    <VideoItem key={ video.id.videoId ? video.id.videoId : video.id.channelId}
                     video={video} />
-                })}
+                    
+                ))}
             
             </div>
         );
