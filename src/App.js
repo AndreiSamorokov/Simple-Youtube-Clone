@@ -11,8 +11,7 @@ import Typography from '@material-ui/core/Typography'
 import AppBar from '@material-ui/core/AppBar'
 import Toolbar from '@material-ui/core/Toolbar'
 import Container from '@material-ui/core/Container'
-import {ThemeProvider, createMuiTheme} from '@material-ui/core/styles'
-import { orange } from '@material-ui/core/colors'
+import {ThemeProvider, createMuiTheme} from '@material-ui/core/styles' 
 import VideoLibraryIcon from '@material-ui/icons/VideoLibrary';
 import Button from '@material-ui/core/Button'
 import Grid from '@material-ui/core/Grid'
@@ -22,6 +21,8 @@ function App() {
  
   const [videos, setVideos] = React.useState([]);
   const [selectedVideo, setSelectedVideo] = React.useState(null);
+  const [channelId, setChannelId] = React.useState('UCsUzcuvRZmPfJIqPcnmo3xw');
+  const [qstring, setQstring] = React.useState('Sam Jiyon');
 
   const theme = createMuiTheme({
     // palette: {
@@ -30,35 +31,58 @@ function App() {
     //   }
     // }
   })
+
+  const channels = ([
+    {
+      'title' : 'Sam Jiyon',
+      'channelId' : 'UCsUzcuvRZmPfJIqPcnmo3xw'
+    },
+    {
+      'title' : 'Korean World',
+      'channelId' : 'UCEONxBYQH43TF8BwPLbu3Sg'
+    },
+    // {
+    //   'title' : 'Echo of Truth',
+    //   'channelId' : 'UCP5_cAbRgjsZjkhrHBq84xQ'
+    // },
+  ]);
  
   const KEY = 'AIzaSyADEp1HFKfMKOhQ_pWV9meGyctGlStSBUI';
  
-  React.useEffect(() => { 
-    async function fetchVideos() {
-      await youtube.get('/search', {
-          params: {
-              key: KEY,
-              channelId: 'UCsUzcuvRZmPfJIqPcnmo3xw',
-              part: 'snippet',
-              q: 'Sam jiyon',
-              maxResults: 15,
-              order: 'date'
-          }
-      }).then(response => {
-
-        setVideos( response.data.items ); 
-        setSelectedVideo( response.data.items[0] );  
-      });
-      
+  React.useEffect(() => {
+    if( videos.length == 0 ){
+      fetchVideos();
     }
-
-    fetchVideos();
-
+    console.log('effect function');
   }, []); // <-- Have to pass in [] here!
  
-  function onVideoSelect(video){
-    console.log( video );
+
+  const fetchVideos = async  () => {
+    await youtube.get('/search', {
+        params: {
+            key: KEY,
+            channelId: channelId,
+            part: 'snippet',
+            q: qstring,
+            maxResults: 5,
+            order: 'date'
+        }
+    }).then(response => { 
+      console.log('functional called');
+      setVideos( response.data.items ); 
+      setSelectedVideo( response.data.items[0] );  
+    });
+    
+  }
+
+  function onVideoSelect(video){ 
     setSelectedVideo( video );  
+  }
+
+  function onChannelSelect( qstringval, channelIdval ){ 
+    setChannelId( channelIdval );
+    setQstring  ( qstringval ); 
+    fetchVideos();
   }
 
   return selectedVideo ? (
@@ -66,11 +90,11 @@ function App() {
           <AppBar position="relative">
               <Toolbar>
                 <VideoLibraryIcon />
-                <Typography variant="h5" > Videos </Typography>
-
-                <Button color="inherit">Sam jiyon</Button>
-                <Button color="inherit">Film</Button>
-                <Button color="inherit">Echo</Button>
+                <Typography variant="h5" > Videos </Typography> 
+                { channels.map((channel) =>(
+                  <Button variant="out lined" key={channel.title}  onClick={() => onChannelSelect(channel.title, channel.channelId)} color="inherit">{channel.title}</Button>
+                ))}
+                
               </Toolbar> 
           </AppBar>
           <main> 

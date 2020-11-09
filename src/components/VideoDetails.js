@@ -19,7 +19,7 @@ function VideoDetails(video) {
         <Grid item lg={8}  xs={12}>   
             <Card>
                 <div className='CardDetail'>
-                    <iframe width="1280" height="716" src={videoEmbedURL} frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                    <iframe width="1280" height="716" src={videoEmbedURL}  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowFullScreen></iframe>
                 </div>
                 <CardActionArea> 
                     <CardContent>
