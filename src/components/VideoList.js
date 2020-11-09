@@ -1,20 +1,18 @@
 import VideoItem from './VideoItem.js'
+import Grid from '@material-ui/core/Grid'
 
-
-function VideoList( videos ) {
-    const videofiles = videos.videos;
-    
-    if( videofiles.length > 0 ){  
+function VideoList( {videos, onVideoSelect} ) { 
+    if( videos.length > 0 ){  
         return (
-            <div className="list"> 
-                { videofiles.map( (video)=>(
+            <Grid item lg={4} xs={12}> 
+                { videos.map( (video)=>(
                      
                     <VideoItem key={ video.id.videoId ? video.id.videoId : video.id.channelId}
-                    video={video} />
-                    
-                ))}
-            
-            </div>
+                    video={video} 
+                    onVideoSelect={onVideoSelect}
+                    /> 
+                ))}            
+            </Grid>
         );
 
     

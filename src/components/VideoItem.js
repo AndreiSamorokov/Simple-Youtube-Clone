@@ -1,16 +1,20 @@
-function VideoItem( video, onVideoSelect ) {
-    var videofile = video.video;
+import Typography from '@material-ui/core/Typography'
+import './VideoItem.css'
+import Paper from '@material-ui/core/Paper'
+
+function VideoItem( {video, onVideoSelect} ) {
+    
     return (
-        <div className="video-item item" onClick={() => onVideoSelect(videofile)}>
+        <Paper onClick={() => onVideoSelect(video)}>
             <img className="ui image" 
-                src={videofile.snippet.thumbnails.medium.url} 
-                alt="{videofile.snippet.title}" />
-            <div className="content">
-                <div className="header">
-                    {videofile.snippet.title}
-                </div>
+                src={video.snippet.thumbnails.medium.url} 
+                alt="{video.snippet.title}" />
+            <div className="content"> 
+                <Typography>
+                    {video.snippet.title}   
+                </Typography> 
             </div>
-        </div>
+        </Paper>
     );
 }
 
