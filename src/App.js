@@ -41,13 +41,10 @@ function App() {
       'title' : 'Traversy Media',
       'channelId' : 'UC29ju8bIPH5as8OGnQzwJyA'
     }, 
-    // {
-    //   'title' : 'Echo of Truth',
-    //   'channelId' : 'UCP5_cAbRgjsZjkhrHBq84xQ'
-    // },
+ 
   ]);
  
-  const KEY = 'AIzaSyADEp1HFKfMKOhQ_pWV9meGyctGlStSBUI';
+  const KEY = 'Your Google API KEY';
  
   React.useEffect(() => {
     fetchVideos(); 
