@@ -34,24 +34,20 @@ function App() {
 
   const channels = ([
     {
-      'title' : 'Sam Jiyon',
-      'channelId' : 'UCsUzcuvRZmPfJIqPcnmo3xw'
+      'title' : 'Владилен Минин',
+      'channelId' : 'UCg8ss4xW9jASrqWGP30jXiw'
     },
     {
-      'title' : 'Korean World',
-      'channelId' : 'UCEONxBYQH43TF8BwPLbu3Sg'
-    },
-    // {
-    //   'title' : 'Echo of Truth',
-    //   'channelId' : 'UCP5_cAbRgjsZjkhrHBq84xQ'
-    // },
+      'title' : 'Traversy Media',
+      'channelId' : 'UC29ju8bIPH5as8OGnQzwJyA'
+    }, 
+ 
   ]);
  
-  const KEY = 'AIzaSyADEp1HFKfMKOhQ_pWV9meGyctGlStSBUI';
+  const KEY = 'Your Google API KEY';
  
   React.useEffect(() => {
-    fetchVideos();
-    console.log('effect function');
+    fetchVideos(); 
   }, [channelId]); // <-- Have to pass in [] here!
  
 
@@ -65,8 +61,7 @@ function App() {
             maxResults: 5,
             order: 'date'
         }
-    }).then(response => { 
-      console.log('functional called');
+    }).then(response => {  
       setVideos( response.data.items ); 
       setSelectedVideo( response.data.items[0] );  
     });
@@ -87,11 +82,10 @@ function App() {
           <AppBar position="relative">
               <Toolbar>
                 <VideoLibraryIcon />
-                <Typography variant="h5" > Videos </Typography> 
+                <Typography variant="h5" > Learning Videos </Typography> 
                 { channels.map((channel) =>(
                   <Button variant="outlined" key={channel.title}  onClick={() => onChannelSelect(channel.title, channel.channelId)} color="inherit">{channel.title}</Button>
-                ))}
-                
+                ))}                
               </Toolbar> 
           </AppBar>
           <main> 
