@@ -50,11 +50,9 @@ function App() {
   const KEY = 'AIzaSyADEp1HFKfMKOhQ_pWV9meGyctGlStSBUI';
  
   React.useEffect(() => {
-    if( videos.length == 0 ){
-      fetchVideos();
-    }
+    fetchVideos();
     console.log('effect function');
-  }, [videos]); // <-- Have to pass in [] here!
+  }, [channelId]); // <-- Have to pass in [] here!
  
 
   const fetchVideos = async  () => {
@@ -63,7 +61,7 @@ function App() {
             key: KEY,
             channelId: channelId,
             part: 'snippet',
-            q: qstring,
+            // q: qstring,
             maxResults: 5,
             order: 'date'
         }
